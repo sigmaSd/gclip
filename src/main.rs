@@ -15,7 +15,7 @@ fn main() {
         text
     };
 
-    paste_to_cp(text);
+    paste_to_cp(text.trim().to_string());
 }
 
 fn paste_to_cp(text: String) {
