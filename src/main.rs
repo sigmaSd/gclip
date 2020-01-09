@@ -1,5 +1,5 @@
 use atty::{is, Stream};
-use gtk::{self, ButtonExt, ContainerExt, WidgetExt};
+use gtk::{self, ContainerExt, WidgetExt};
 use std::io::{self, Read};
 
 fn main() {
@@ -26,19 +26,19 @@ fn paste_to_cp(text: String) {
     );
     let cp = cp.expect("Error getting default Clipboard");
 
-    let btn = gtk::Button::new_with_label("copy");
     let win = gtk::Window::new(gtk::WindowType::Toplevel);
-    win.add(&btn);
+    let label = gtk::Label::new(Some("Copied!"));
+    win.add(&label);
     win.show_all();
 
+    label.connect_draw(move |_, _| {
+        cp.set_text(&text);
+        cp.store();
+        gtk::Inhibit(false)
+    });
     win.connect_delete_event(|_, _| {
         gtk::main_quit();
         gtk::Inhibit(false)
-    });
-
-    btn.connect_clicked(move |_| {
-        cp.set_text(&text);
-        cp.store();
     });
 
     gtk::main();
