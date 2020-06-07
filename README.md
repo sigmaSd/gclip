@@ -8,7 +8,7 @@ Crossplatfrom xclip script (with caveat)
     gclip file
     
  ## Caveat
-  gclip will spawn a gtk button btn, that you have to press inorder to actually copy the data
+  gclip will spawn a gtk Label saying Copied! that you have to dismess (ctrlc, or x button)
   
  ## Why
   It works on wayland
